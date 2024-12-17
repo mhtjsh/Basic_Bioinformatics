@@ -149,4 +149,5 @@ print(PatternMatching(pattern, text))
 Output look something like this for particular dataset ``[0, 16, 28, 38]``, where this function helps identify the starting positions of a pattern within a DNA sequence, which is crucial for many bioinformatics tasks like motif finding and sequence alignment.
 
 
-## 🧬 Season 2 - Adding steel rods as skeleton
+## 🧬 Season 2 - Adding steel rods as skeleton for the building
+### 🐍 Ep 1 - 
