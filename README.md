@@ -150,4 +150,61 @@ Output look something like this for particular dataset ``[0, 16, 28, 38]``, wher
 
 
 ## 🧬 Season 2 - Adding steel rods as skeleton for the building
-### 🐍 Ep 1 - 
+A bit more complex and tough concepts are being touched upon which needed a lot more efforts to be understood are taken into account here, and I am giving my level best to make it most simpler interpreation of that concept to understand and trying to address each and every question which I had and possibly you could have durning your learning journey
+
+### 🐍 Ep 1 - Symbol array in DNA sequence
+🧠 What exactly is symbol array?
+  - The Symbol Array calculates how frequently a specific nucleotide (e.g., "A", "C", "G", or "T") appears in a half-length sliding window across a given DNA sequence.
+  This approach is particularly useful when analyzing circular genomes or trying to identify regions that are enriched with a particular symbol.
+
+🧠 How does it actually work?
+  - Suppose, input Genome ``ATGATAGTCCGAAA`` have length of _n_ = 13
+  - The function extends this genome to simulate a circular genome by appending half of the genome (_n/2_) to the end
+    - Extended Genome ``ATGATAGTCCGAAA`` → ``ATGATAGTCCGAAAATGA``
+  - For each position _i_ in the genome, it calculates the count of the symbol "A" within a half-length window (n/2=6) starting at _i_
+
+🧠 Why Half ``n/2`` the Genome length?
+- Because of the circularized Genome nature i.e. By extending the genome (``ExtendedGenome``), you ensure that sliding windows near the end of the sequence "wrap around" and include the beginning of the sequence. This avoids missing patterns that cross the genome's end. Also, dividing the genome into segments of half its length is a common approach to detect local enrichments of a nucleotide.
+
+  This primarily involves 2 major programs
+  1. ``SymbolArray`` : Extends the genome and calculates the symbol counts.
+  2. ``PatternCount``: Counts how many times a symbol appears in a window.
+
+🛠️ Program Code
+```Python
+def SymbolArray(Genome, symbol):
+    array = {}  # Stores counts for each starting position
+    n = len(Genome)
+    ExtendedGenome = Genome + Genome[0:n//2]  # Extend the genome to handle circular overlap
+    for i in range(n):
+        array[i] = PatternCount(symbol, ExtendedGenome[i:i+(n//2)])  # Count occurrences in each half-window
+    return array
+
+def PatternCount(Pattern, Text):
+    count = 0
+    for i in range(len(Text) - len(Pattern) + 1):
+        if Text[i:i+len(Pattern)] == Pattern:  # Check for matches
+            count += 1
+    return count
+
+# Example usage
+print(SymbolArray("ATGATAGTCCGAAA", "A"))
+```
+
+Output of which something looks like this:
+```
+{0: 4, 1: 4, 2: 4, 3: 3, 4: 3, 5: 3, 6: 3, 7: 3, 8: 3, 9: 4, 10: 4, 11: 4, 12: 4}
+```
+which basically explains us:
+1. Each key (e.g., ``0``, ``1``, ``2``...) represents a starting position in the genome.
+2. Each value (e.g., ``4``, ``3``) indicates how many times the symbol "A" appears in a window of size 6 starting from that position.
+
+For example :
+- At position ``0``, the window is ``ATGATA`` → "A" appears 4 times.
+- At position ``3``, the window is ``ATAGTC`` → "A" appears 3 times.
+- At position ``10``, the window is ``AAAATG`` → "A" appears 4 times.
+
+In a nutshell,
+1. Regions with high counts indicate **"A"-rich regions** (or symbol-rich areas).
+2. By sliding the window across the genome, it allows us to detect where the symbol of interest is concentrated.
+
