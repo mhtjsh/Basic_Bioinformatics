@@ -100,7 +100,7 @@ We found a very specific type of Output where this motif seq have the most occur
 This is a fundamental step for motif discovery and genomic analysis. 
 
 ### 🐍 Ep 4 - Complementary DNA String
-Now I know very well that ``BioPython`` have a very short/single line of code to do this i.e. ``Bio.Seq.complement()``  but just to get hold of the python and the essence of how does python interpret this single line in ``Biopython library`` would be very intresting to understand.
+Now I know very well that ``BioPython`` provides a very short/single line of code to do this i.e. ``Bio.Seq.complement()``  but just to get hold of the python and the essence of how does python interpret this single line in ``Biopython library`` would be very intresting to understand.
 
 Complementing is bascially:
 - **A** ↔ **T**
