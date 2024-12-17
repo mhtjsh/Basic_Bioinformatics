@@ -99,7 +99,7 @@ We found a very specific type of Output where this motif seq have the most occur
 
 This is a fundamental step for motif discovery and genomic analysis. 
 
-### 🐍 Ep 4 - Find the complementary sequence to that of the given genomic sequence
+### 🐍 Ep 4 - Complementary DNA String
 Now I know very well that ``BioPython`` have a very short/single line of code to do this i.e. ``Bio.Seq.complement()``  but just to get hold of the python and the essence of how does python interpret this single line in ``Biopython library`` would be very intresting to understand.
 
 Complementing is bascially:
@@ -125,3 +125,25 @@ def Complement(Pattern):
 print(Complement('ACGTTGCATGTCGCATGAGCATGAGAGCT'))
 ```
 Output should look something like this ``TGCAACGTACAGCGTACTCGTACTCTCGA`` which is a complementary sequence to the given sequence
+
+### 🐍 Ep 5 - Pattern Matching in DNA Sequence
+In this episode, we will explore how to find all positions where a given pattern appears in a DNA sequence. This is very much similar to that of the Frequency counter i.e. ``MostFrequentK-Mer`` but we are trying to find exact positions where this patterns exist in the particular parent sequence (``Genome``).
+
+We will use the ``PatternMatching`` function to search for a specified pattern in the given sequence (``Genome``), and return all positions where the pattern starts.
+
+🛠️ Program Code
+```Python
+def PatternMatching(Pattern, Genome):
+    Positions = []  # Output list to store positions
+    for i in range(len(Genome) - len(Pattern) + 1):
+        if Genome[i:i+len(Pattern)] == Pattern:  # Check for the match
+            Positions.append(i)  # Append position if match found
+    return Positions
+
+# Example usage
+text = 'CGCGATACGTTACATACATGATAGACCGCGCGCGATCATATCGCGATTATC'
+pattern = 'CGCG'
+print(PatternMatching(pattern, text))
+```
+
+Output look something like this for particular dataset ``[0, 16, 28, 38]``, where this function helps identify the starting positions of a pattern within a DNA sequence, which is crucial for many bioinformatics tasks like motif finding and sequence alignment.
