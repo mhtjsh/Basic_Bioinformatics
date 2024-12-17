@@ -1,2 +1,2 @@
 # 🦠 Basic Bioinformatics
-I am sharing my code repository to understand the basic working and principle of working of various BioInformatics code in Python
+I am sharing my code repository to understand the basic working and principle of various BioInformatics code in Python; I am writting this github repository with 2 main intensions of mine first and foremost is to build myself a code base to look back onto how I learnt the Bioinformatics and understood how the skeleton of code works/internacts with my subject of intrest i.e. Biology and second is to make you people undertand how the BioPython
