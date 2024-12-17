@@ -58,7 +58,7 @@ Output of this code looks something like this
 ```
 where, The function takes a DNA sequence (``Text``) and k-mer length (``k``) as input, extracts all k-mers, and returns a dictionary mapping each k-mer to its count.
 
-### 🐍 Ep - 3 Most Frequent K-mers
+### 🐍 Ep 3 - Most Frequent K-mers
 Now let's understand how this magic runs in the world of Bioinfomatics, here we will be using 2 main functions, one of which we already understood earlier:
 1. ``FrequencyMap`` - To calculate the frequency of all k-mers in the given sequence. (we understood earlier)
 2. ``FrequentWords`` - To identify and return the most frequent k-mers.
@@ -98,3 +98,30 @@ By combining a frequency map with a simple search for the maximum value, we can 
 We found a very specific type of Output where this motif seq have the most occurance in the Parent genomic sequence.
 
 This is a fundamental step for motif discovery and genomic analysis. 
+
+### 🐍 Ep 4 - Find the complementary sequence to that of the given genomic sequence
+Now I know very well that ``BioPython`` have a very short/single line of code to do this i.e. ``Bio.Seq.complement()``  but just to get hold of the python and the essence of how does python interpret this single line in ``Biopython library`` would be very intresting to understand.
+
+Complementing is bascially:
+- **A** ↔ **T**
+- **C** ↔ **G**
+
+🛠️ Program Code
+```Python
+def Complement(Pattern):
+    compl = ''
+    for i in Pattern:
+        if i == 'A':
+            compl = compl + 'T'
+        elif i == 'T':
+            compl = compl + 'A'
+        elif i == 'C':
+            compl = compl + 'G'
+        elif i == 'G':
+            compl = compl + 'C'
+    return compl
+
+# Example usage
+print(Complement('ACGTTGCATGTCGCATGAGCATGAGAGCT'))
+```
+Output should look something like this ``TGCAACGTACAGCGTACTCGTACTCTCGA`` which is a complementary sequence to the given sequence
