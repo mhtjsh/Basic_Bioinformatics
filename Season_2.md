@@ -199,4 +199,173 @@ else:
 4. Returning the output in a list where each element represents the skew at that position in the genome.
    
 ### 🐍 Ep 3 Minimum Skew in a DNA Sequence
+🧠 Why exactly use ``MinimumSkew`` function?
 
+The positions of minimum skew typically represent regions of high C content relative to G, marking potential **"replication origin"** sites.
+
+🛠️ Program Code
+```Python
+def SkewArray(Genome):
+    # Initialize skew array starting at 0
+    skew = {0: 0}
+    for i in range(len(Genome)):
+        if Genome[i] == 'A' or Genome[i] == 'T':
+            skew[i + 1] = skew[i]  # No change for A or T
+        elif Genome[i] == 'G':
+            skew[i + 1] = skew[i] + 1  # Increment skew for G
+        elif Genome[i] == 'C':
+            skew[i + 1] = skew[i] - 1  # Decrement skew for C
+    return skew
+
+def MinimumSkew(Genome):
+    # Identify positions with the minimum skew
+    positions = []
+    skew_raw = SkewArray(Genome)
+    min_value = min(skew_raw.values())  # Find minimum skew value
+    for key, value in skew_raw.items():
+        if value == min_value:
+            positions.append(key)  # Collect positions with minimum skew
+    return positions
+
+# Example Execution
+print(MinimumSkew("GATACACTTCCCGAGTAGGTACTG"))
+```
+
+Output of which looks something like this ``[10, 23]``
+
+💡 Key Concept of ``MinimumSkew`` is:
+1. SkewArray: Calculates the cumulative skew for each position in the genome and gives a dictionary where keys represent genome positions and values represent cumulative skew values as output which looks like
+```Python
+SkewArray("CATGGGCATCGGCC")
+# Output: {0: 0, 1: 0, 2: -1, 3: 0, 4: 1, 5: 2, 6: 3, 7: 2, ...}
+```
+2. Finding the Minimum Skew:
+ - Compute the skew array using the SkewArray function
+ - Identify the minimum skew value in the array.
+ - Collect all positions where this minimum value occurs.
+```Python
+min_value = min(skew_raw.values())
+for key, value in skew_raw.items():
+    if value == min_value:
+        positions.append(key)
+```
+3. Output: The minimum skew value occurs at positions 10 and 23 (here), which signifies that these positions represent regions where the cumulative G-C imbalance is at its lowest. Also, these are likely candidates for replication origin sites in the genome. 
+
+### 🐍 Ep 4 Calcualting Hamming Distance between DNA sequence
+🧠 What is Hamming Distance?
+
+The Hamming distance between two strings of equal length is the number of positions at which the corresponding elements (characters or nucleotides) are different.
+
+🧠 Where exactly  is ``HammingDistance`` used?
+
+It is primarirly used in **Mutation Detection** and **Sequence Comparision**
+
+🛠️ Program Code
+```Python
+def HammingDistance(seq1, seq2):
+    """
+    Calculate the Hamming Distance between two DNA sequences of equal length.
+
+    Args:
+        seq1 (str): The first DNA sequence.
+        seq2 (str): The second DNA sequence.
+
+    Returns:
+        int: The number of differing positions between the two sequences.
+    """
+    # Initialize a counter for differing positions
+    counter = 0
+
+    # Compare characters at each position in both sequences
+    for i in range(len(seq1)):
+        if seq1[i] != seq2[i]:
+            counter += 1  # Increment counter for each mismatch
+
+    return counter
+
+# Example Execution
+seq1 = "CTTGAAGTGGACCTCTAGTTCCTCTACAAAGAACAGGTTGACCTGTCGCGAAG"
+seq2 = "ATGCCTTACCTAGATGCAATGACGGACGTATTCCTTTTGCCTCAACGGCTCCT"
+print(HammingDistance(seq1, seq2))
+```
+
+Output of which is ``37``
+
+💡 Key Concept of ``HammingFunction`` is:
+1. It iterate over the position of both the sequences
+2. Compare the corresponding characters at each position.
+3. If the characters differ, increment the counter.
+4. Output ie. ``37`` shows that the two sequences differs at 37 positions, which shows that there are 37 mutations in the between the DNA sequence.
+
+### 🐍 Ep 5 Approximate Pattern Matching in DNA Sequences
+
+🧠 What is Approximate Pattern Matching?
+
+Approximate Pattern Matching identifies locations where a pattern almost matches a part of the sequence, allowing for a limited number of mismatches.
+
+
+🧠 Where is ``ApproximatePatternMatching`` function used?
+
+Primarily it is used in **Mutation analysis** and **Sequence Search**.
+
+🛠️ Program Code
+```Python
+def HammingDistance(seq1, seq2):
+    """
+    Calculate the Hamming Distance between two DNA sequences of equal length.
+
+    Args:
+        seq1 (str): The first DNA sequence.
+        seq2 (str): The second DNA sequence.
+
+    Returns:
+        int: The number of differing positions between the two sequences.
+    """
+    counter = 0
+    for i in range(len(seq1)):
+        if seq1[i] != seq2[i]:
+            counter += 1
+    return counter
+
+def ApproximatePatternMatching(Text, Pattern, d):
+    """
+    Find all positions where a pattern matches the text with up to 'd' mismatches.
+
+    Args:
+        Text (str): The DNA sequence.
+        Pattern (str): The pattern to search for.
+        d (int): Maximum allowed mismatches.
+
+    Returns:
+        list: Positions where the pattern approximately matches the text.
+    """
+    positions = []  # Store matching positions
+    n = len(Text)   # Length of the DNA sequence
+    m = len(Pattern)  # Length of the pattern
+
+    # Check all substrings of Text with length equal to the pattern
+    for i in range(n - m + 1):
+        # Extract the substring and calculate Hamming distance
+        if HammingDistance(Text[i:i + m], Pattern) <= d:
+            positions.append(i)  # Add position if within mismatch threshold
+
+    return positions
+
+# Example Execution
+Text = "ATGCATATGACTACTAGATACTGATACTGATACATA"
+Pattern = "ATAG"
+d = 1
+print(ApproximatePatternMatching(Text, Pattern, d))
+```
+Output of which looks somehting like this: ``[6, 17, 23]``
+
+💡 Key concept of ``ApproximatePatternMatching``
+1. We are giving 3 input variables:
+  - **Text**: DNA sequence to search through
+  - **Pattern**: The motif or sequence to search for
+  - **d**: Maximum allowed mismatches (Hamming distance)
+2. Logic:
+  - Exract every substring of ``Text`` with the same length as ``Pattern``
+  - Calculate the **Hamming Distance** between the substring and the pattern
+  - If the Hamming Distance is ≤ ``d``, record the position
+3. Output tells that the pattern "ATAG" (here) appears approximately at positions 6, 17, and 23 in the sequence, where each match has exact 1 mismatch i.e. ``d=1``
