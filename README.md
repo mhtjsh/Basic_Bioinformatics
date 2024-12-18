@@ -22,4 +22,7 @@ The primary topics involved here looks like:
 2. Symbol Array but faster (Extended ``SymbolArray``)
 3. Skew Array in DNA seq (2 methods explained)
 4. Minimum Skew in DNA seq
-5. 
+5. Calcualting Hamming Distance between DNA
+6. Approximate Pattern Matching in DNA
+
+## 🧬 Season 3 - Adding Concrete slurry in the Skeletal Structure
