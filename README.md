@@ -204,7 +204,7 @@ For example :
 - At position ``3``, the window is ``ATAGTC`` → "A" appears 3 times.
 - At position ``10``, the window is ``AAAATG`` → "A" appears 4 times.
 
-In a nutshell,
+💡 In a nutshell,
 1. Regions with high counts indicate **"A"-rich regions** (or symbol-rich areas).
 2. By sliding the window across the genome, it allows us to detect where the symbol of interest is concentrated.
 
