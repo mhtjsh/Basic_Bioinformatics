@@ -20,5 +20,6 @@ A bit more complex and tough concepts are being touched upon which needed a lot 
 The primary topics involved here looks like:
 1. Symbol Array in DNA Seq
 2. Symbol Array but faster (Extended ``SymbolArray``)
-3. Skew Array in DNA seq
+3. Skew Array in DNA seq (2 methods explained)
 4. Minimum Skew in DNA seq
+5. 
