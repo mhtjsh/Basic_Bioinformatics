@@ -273,4 +273,79 @@ Output of which looks something like this:
  - As the window slides by one position, the count is adjusted efficiently.
     - Subtract **1** if the symbol exits the window. ``(i-1)`` The symbol which leaves the window (leftmost position).
     - ``(i+n//2-1)`` : The symbol enters the 
-    - Add **1** if the symbol enters the window. 
+    - Add **1** if the symbol enters the window.
+5. Finally returning the result of array of counts for each starting position in the Genome.
+
+### 🐍 Ep 2 Skew Array in DNA
+🧠 What exactly is Skew an array means?
+
+Skew function calculates the skewness of the data set. 
+- skewness = 0 : normally distributed.
+- skewness > 0 : more weight in the left tail of the distribution.
+- skewness < 0 : more weight in the right tail of the distribution.
+
+This is how the graph looks like:
+
+![Skew Graphs](https://github.com/user-attachments/assets/fe9f9120-67a5-46a3-b5ce-f5db04abdc6c)
+
+🧠 How is it used in BioInformatics?
+
+The ``SkewArray`` function calculates the cumulative skew of a DNA sequence, which is the difference between the number of G and C nucleotides encountered at each position. This is particularly useful for identifying replication origins where the imbalance between G and C is at its minimum, which we will also disucss which will be ``MinimumSkew``
+- **G** increases the skew value by +1.
+- **C** decreases the skew value by -1.
+- **A** and **T** do not affect the skew.
+
+🛠️ Program Code ↔ By listing method (Method 1)
+```Python
+def SkewArray(Genome):
+    # Initialize skew array starting at 0
+    skew = [0]
+    for i in range(len(Genome)):
+        if Genome[i] == 'A' or Genome[i] == 'T':
+            skew.append(skew[-1])  # No change for A or T
+        elif Genome[i] == 'G':
+            skew.append(skew[-1] + 1)  # Increment skew for G
+        elif Genome[i] == 'C':
+            skew.append(skew[-1] - 1)  # Decrement skew for C
+    return skew
+
+# Example Execution
+print(SkewArray("CATGGGCATCGGCCATACGCC"))
+```
+or 
+
+🛠️ Program Code ↔ By Dictionary method (Method 2)
+```Python
+def SkewArray(Genome):
+    skew = {0: 0}  # Initialize dictionary with skew at index 0 as 0
+    for i in range(len(Genome)):
+        if Genome[i] == 'A' or Genome[i] == 'T':
+            skew[i + 1] = skew[i]  # Same skew if A or T
+        elif Genome[i] == 'G':
+            skew[i + 1] = skew[i] + 1  # Increment skew for G
+        elif Genome[i] == 'C':
+            skew[i + 1] = skew[i] - 1  # Decrement skew for C
+    return skew
+
+print(SkewArray("GATACACTTCCCGAGTAGGTACTG"))
+```
+
+Output of both looks something like this:
+``[0, 0, -1, 0, 1, 2, 3, 2, 1, 1, 1, 2, 3, 2, 1, 0, -1, -1, -2, -1, -2]``
+
+💡 Key concept of ``SkewArray``
+1. Skew Initialsation : The skew starts at 0, representing a balance between G and C at the beginning of the genome. ``skew = [0]``
+2. Skew Update Rule: For each nucleotide:
+   - G - +1 to current Skew
+   - C - -1 to current Skew
+```Python
+if Genome[i] == 'G':
+    skew.append(skew[-1] + 1)
+elif Genome[i] == 'C':
+    skew.append(skew[-1] - 1)
+else:
+    skew.append(skew[-1])
+```
+3. Cummulative calculation: The skew is calculated cumulatively along the genome, building a sequence of skew values.
+4. Returning the output in a list where each element represents the skew at that position in the genome.
+   
