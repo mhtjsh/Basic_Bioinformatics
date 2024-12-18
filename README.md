@@ -349,3 +349,4 @@ else:
 3. Cummulative calculation: The skew is calculated cumulatively along the genome, building a sequence of skew values.
 4. Returning the output in a list where each element represents the skew at that position in the genome.
    
+### 🐍 Ep 3 Minimum Skew in a DNA Sequence
