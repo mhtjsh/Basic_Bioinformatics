@@ -208,3 +208,69 @@ For example :
 1. Regions with high counts indicate **"A"-rich regions** (or symbol-rich areas).
 2. By sliding the window across the genome, it allows us to detect where the symbol of interest is concentrated.
 
+### 🐍 Ep 1 **Extended** - Symbol array in DNA but faster
+The ``FasterSymbolArray`` function is an optimized version of the ``SymbolArray`` function. Instead of recalculating the PatternCount for every sliding window (as done previously), it reduces redundant calculations by incrementally updating the count.
+
+🧠 Why is it Faster?
+ - Compared to SymbolArray, which recalculates the PatternCount from scratch for every position ``FasterSymbolArray`` avoids redundant computations by only adjusting the count when the window slides.
+
+    Now I know this dosen't makes a much of difference at a smaller level but as we upscale the production it increases the time required to compile the program, for CS enthusiasts it is known as ``Time Complexity``, so here by using ``FasterSymbolArray`` it reduces the time complexity significantly by linearizing it to _O(n)_ as compared to the normal appraoch.
+
+🛠️ Program Code
+```Python
+def PatternCount(Pattern, Text):
+    # Counts occurrences of a Pattern in Text
+    count = 0
+    for i in range(len(Text) - len(Pattern) + 1):
+        if Text[i:i+len(Pattern)] == Pattern:
+            count += 1
+    return count
+
+def FasterSymbolArray(Genome, symbol):
+    # Optimized version of SymbolArray using sliding window technique
+    array = {}
+    n = len(Genome)
+    ExtendedGenome = Genome + Genome[0:n//2]
+
+    # Initialize with the count of the symbol in the first half of the genome
+    array[0] = PatternCount(symbol, Genome[0:n//2])
+
+    for i in range(1, n):
+        # Start with previous array value
+        array[i] = array[i-1]
+
+        # Adjust count for the sliding window
+        if ExtendedGenome[i-1:i-1+len(symbol)] == symbol:
+            array[i] -= 1  # Subtract 1 if symbol exits the window
+        if ExtendedGenome[i + (n//2) - 1:i + (n//2) - 1 + len(symbol)] == symbol:
+            array[i] += 1  # Add 1 if symbol enters the window
+
+    return array
+
+# Example execution
+print(FasterSymbolArray("ATGCATATGACTACTAGATACTGATACTGATACATA", "AT"))
+```
+
+Output of which looks something like this:
+```
+{0: 3, 1: 3, 2: 3, 3: 3, 4: 3, 5: 3, 6: 3, 7: 3, 8: 3, 9: 3, 10: 3, 11: 3, 12: 3, 13: 3, 14: 3,
+15: 3, 16: 3, 17: 3, 18: 3, 19: 3, 20: 3, 21: 3, 22: 3, 23: 3, 24: 3, 25: 3, 26: 3, 27: 3, 28: 3,
+29: 3, 30: 3, 31: 3, 32: 3, 33: 3, 34: 3, 35: 3}
+```
+
+💡 Key concept of ``FasterSymbolArray`` is:
+1. ``PatternCount`` fucntion intialization which Counts how many times a pattern (``symbol``) occurs in a given text.
+2. Calculation of ``ExtendedGenome`` to simulate a **circular genome** and ensure patterns near the end of the genome can "wrap around."
+   ```Python
+   ExtendedGenome = Genome + Genome[0:n//2]
+   ```
+3. Initialization of ``FasterSymbolArray`` which start by calculating the count of the symbol in the first half of the genome.
+   ```Python
+   array[0] = PatternCount(symbol, Genome[0:n//2])
+   ```
+4. Sliding the window in ``FasterSymbolArray``
+ - The array is initialized with the count of the symbol in the first half of the genome.
+ - As the window slides by one position, the count is adjusted efficiently.
+    - Subtract **1** if the symbol exits the window. ``(i-1)`` The symbol which leaves the window (leftmost position).
+    - ``(i+n//2-1)`` : The symbol enters the 
+    - Add **1** if the symbol enters the window. 
