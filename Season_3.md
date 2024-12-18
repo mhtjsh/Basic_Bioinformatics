@@ -3,6 +3,6 @@ Now season 3 and the upcoming last season involves a bit of Umbrealla type of Co
 
 Therefore, I encourage you to jus stick with me and just enjoy the miracle or magic that you are about to experince at the end durning this journey.
 
-Now to undertstand the further episodes (Ep) I would urge you to take a look at _NumPy_ an intresting and very efficient Python library to sort and visualize the Array is been used. I would urge you to go through the [Documentation](https://numpy.org/doc/) of the _NumPy_ a bit and this will help you to understand all the further episodes with me.
+Now to undertstand the further episodes (Ep) I would urge you to take a look at _NumPy_ an intresting and very efficient Python library to sort and visualize the Array is been used. I would urge you to go through the [Documentation](https://numpy.org/doc/) of the _NumPy_ a bit and this will help you to understand all the further episodes with a breeze.
 
 ### 🐍 Ep 1 - 
