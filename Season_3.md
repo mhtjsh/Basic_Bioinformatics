@@ -257,4 +257,86 @@ Output of which looks like ``Consensus Sequence: CACCTA``
 
 ### 🐍 Ep 4 - Scoring DNA Motifs
 
+Scoring evaluates how much each sequence in the motif deviates from the consensus sequence. It is calculated as the number of mismatches between each sequence and the consensus sequence at every position. This helps assess the level of conservation within the motif:
+- **Low Score**: High conservation (the motif sequences closely match the consensus).
+- **High Score**: Low conservation (the motif sequences vary significantly from the consensus).
+
+🛠️ Program Code
+```Python
+def Count(motif):
+    """
+    Counts the frequency of each nucleotide (A, C, G, T) at each position in the motif.
+    """
+    count = {nt: [0] * len(motif[0]) for nt in "ACGT"}
+    for sequence in motif:
+        for i, nucleotide in enumerate(sequence):
+            count[nucleotide][i] += 1
+    return count
+
+def Consensus(motif):
+    """
+    Finds the consensus sequence for a given motif.
+    """
+    k = len(motif[0])  # Length of sequences
+    count = Count(motif)  # Get nucleotide counts
+    consensus = ""  # Initialize consensus sequence
+    
+    for j in range(k):
+        max_count = 0
+        frequent_symbol = ""
+        for symbol in "ACGT":
+            if count[symbol][j] > max_count:
+                max_count = count[symbol][j]
+                frequent_symbol = symbol
+        consensus += frequent_symbol  # Append the most frequent nucleotide
+    
+    return consensus
+
+def Score(motif):
+    """
+    Calculates the score of a motif based on its consensus sequence.
+    
+    Args:
+        motif (list): A list of DNA sequences of the same length.
+        
+    Returns:
+        int: The total score (number of mismatches with the consensus sequence).
+    """
+    consensus = Consensus(motif)  # Find consensus sequence
+    k = len(motif[0])  # Length of each sequence
+    score = 0  # Initialize score
+    
+    # Calculate mismatches at each position
+    for j in range(k):
+        for sequence in motif:
+            if sequence[j] != consensus[j]:
+                score += 1  # Increment score for mismatches
+    
+    return score
+
+# Example motif input
+motif = [
+    'AACGTA',
+    'CCCGTT',
+    'CACCTT',
+    'GGATTA',
+    'TTCCGG'
+]
+
+# Calculate and display the score of the motif
+motif_score = Score(motif)
+print("Motif Score:", motif_score)
+```
+Output of which looks something like this:
+```
+Consensus Sequence: CACCTA
+Motif Score: 14
+```
+💡 Key concept of ``ScoringDNA`` is:
+1. A list of DNA sequences (``motif``) of the same length as input
+2. Compute the consensus sequence of the motif using the ``Consensus`` function
+3. Count mismatches at every position and sum them up to calculate the score
+4. The total number of mismatches (score) between the motif and its consensus sequence as output.
+
+### 🐍 Ep 5 - 
 
