@@ -418,4 +418,212 @@ Output of which looks somehthing like this ``Most Probable k-mer: ACG``
 3. Keep track of the k-mer with the highest probability.
 4. The k-mer with the highest probability according to the profile matrix.
 
-### 🐍 Ep 6 -
+### 🐍 Ep 6 - Greedy Motif Search
+🧠 What is ``GreedyMotifSearch``?
+
+- **Motifs** : Short, conserved subsequences in DNA found across multiple sequences (e.g., regulatory sites).
+- **Greedy Search** : The algorithm builds motifs iteratively by considering one sequence at a time, refining the motif set based on a scoring function.
+- **Objective** : Minimize the **Score** function, which quantifies how similar the chosen motifs are to the consensus sequence.
+
+The ``GreedyMotifSearch`` function is a simple yet effective algorithm to identify motifs (conserved patterns) in a set of DNA sequences. It starts with an initial guess and iteratively refines it to find the best possible motifs by incorporating probabilistic scoring and profiles.
+
+🛠️ Program Code
+```Python
+def GreedyMotifSearch(Dna, k, t):
+    """
+    Perform Greedy Motif Search to find the best motifs in DNA sequences.
+
+    Args:
+        Dna (list): A list of DNA sequences.
+        k (int): Length of the motif.
+        t (int): Number of sequences in Dna.
+
+    Returns:
+        list: The best motifs found in the DNA sequences.
+    """
+    n = len(Dna[0])  # Length of each DNA sequence
+    best_motifs = [Dna[i][0:k] for i in range(t)]  # Initialize best motifs with first k-mers
+
+    # Iterate through all possible k-mers in the first sequence
+    for i in range(n - k + 1):
+        motifs = [Dna[0][i:i + k]]  # Start with a single k-mer
+        for j in range(1, t):  # Build motifs for the remaining sequences
+            profile = Profile(motifs[:j])  # Calculate the profile matrix for current motifs
+            motifs.append(ProfileMostProbableKmer(Dna[j], k, profile))  # Find most probable k-mer
+        if Score(motifs) < Score(best_motifs):  # Update best motifs if a better score is found
+            best_motifs = motifs
+
+    return best_motifs
+
+
+# Example Functions Required
+def Profile(motifs):
+    """
+    Calculate the profile matrix for a set of motifs.
+    """
+    t = len(motifs)
+    k = len(motifs[0])
+    profile = {nt: [0] * k for nt in "ACGT"}
+    for motif in motifs:
+        for i, nt in enumerate(motif):
+            profile[nt][i] += 1
+    for nt in "ACGT":
+        profile[nt] = [x / t for x in profile[nt]]
+    return profile
+
+
+def ProfileMostProbableKmer(Text, k, Profile):
+    """
+    Find the most probable k-mer in a sequence given a profile matrix.
+    """
+    max_probability = -1
+    most_probable_kmer = ''
+    for i in range(len(Text) - k + 1):
+        kmer = Text[i:i + k]
+        probability = Pr(kmer, Profile)
+        if probability > max_probability:
+            max_probability = probability
+            most_probable_kmer = kmer
+    return most_probable_kmer
+
+
+def Pr(Text, Profile):
+    """
+    Calculate the probability of a k-mer given a profile matrix.
+    """
+    p = 1
+    for i in range(len(Text)):
+        p *= Profile[Text[i]][i]
+    return p
+
+
+def Score(motifs):
+    """
+    Calculate the score of a set of motifs based on the consensus sequence.
+    """
+    consensus = Consensus(motifs)
+    score = 0
+    for j in range(len(motifs[0])):
+        score += sum(1 for motif in motifs if motif[j] != consensus[j])
+    return score
+
+
+def Consensus(motifs):
+    """
+    Find the consensus sequence for a set of motifs.
+    """
+    k = len(motifs[0])
+    count = {nt: [0] * k for nt in "ACGT"}
+    for motif in motifs:
+        for i, nt in enumerate(motif):
+            count[nt][i] += 1
+    consensus = ""
+    for j in range(k):
+        consensus += max("ACGT", key=lambda nt: count[nt][j])
+    return consensus
+
+
+# Example Input
+Dna = [
+    "GGCGTTCAGGCA",
+    "AAGAATCAGTCA",
+    "CAAGGAGTTCGC",
+    "CACGTCAATCAC",
+    "CAATAATATTCG"
+]
+k = 3
+t = 5
+
+# Find the best motifs
+result = GreedyMotifSearch(Dna, k, t)
+print("Best Motifs:", result)
+```
+Output of which looks something like this:
+```
+Best Motifs: ['GGC', 'AAG', 'CAA', 'CAC', 'CAA']
+```
+
+💡 Key Concept:
+1. Input:
+ - ``DNA`` : A list of DNA sequences in which motifs are to be found
+ - ``k`` : The length of the motif
+ - ``t`` : The number of sequences in the DNA list
+2. Start with all possible k-mers from the first sequence
+3. Use a Profile matrix to iteratively refine the motifs for subsequent sequences
+4. Update the best motifs based on the Score function
+5. The best motifs (one from each sequence) that minimize the score
+
+### End of the episode with Greedy algorithm Search being the final algorithm which involves congomaration of all the functions used and understood earlier.
+
+### 🐍 Ep Extended - Finding Patterns with Mismatches
+This script identifies occurrences of a specific pattern within a list of DNA strings, allowing for a defined number of mismatches. It is particularly useful for locating approximate matches in sequences where errors or variations might occur.
+
+🛠️ Program Code
+```Python
+def find_pattern_with_mismatches(text, pattern, max_mismatches):
+    """
+    Find all occurrences of a pattern in a text with at most a given number of mismatches.
+
+    Args:
+        text (str): The main sequence to search.
+        pattern (str): The pattern to find.
+        max_mismatches (int): Maximum allowed mismatches.
+
+    Returns:
+        list: Starting positions of the pattern in the text with at most max_mismatches.
+    """
+    locations = []
+    for i in range(len(text) - len(pattern) + 1):
+        mismatches = 0
+        for j in range(len(pattern)):
+            if text[i + j] != pattern[j]:
+                mismatches += 1
+                if mismatches > max_mismatches:
+                    break
+        if mismatches <= max_mismatches:
+            locations.append(i)
+    return locations
+
+
+# Example Input: Multiple DNA strings
+sample_strings = [
+    "XABACDXABACD",
+    "CDEFCDEHABAC",
+    "GHIJKLABACDa",
+    "PQRSTUABACDX",
+    "VWXYZABACDcA",
+    "HIJKLMNOPQRST",
+    "CDEFGHIJKLMN",
+    "QRSTUVWXYZAB",
+    "EFGHIJKLMNOP",
+    "UVWXYZABCDEF"
+]
+
+pattern = "ABACD"  # Pattern to search for
+max_mismatches = 2  # Allow up to 2 mismatches
+
+# Process each string to find the pattern with mismatches
+for text in sample_strings:
+    locations = find_pattern_with_mismatches(text, pattern, max_mismatches)
+    if locations:
+        print(f"String: {text}, Pattern locations (with at most {max_mismatches} mismatches): {locations}")
+    else:
+        print(f"String: {text}, Pattern not found with at most {max_mismatches} mismatches.")
+```
+Output of which looks something like this:
+```
+String: XABACDXABACD, Pattern locations (with at most 2 mismatches): [1, 7]
+String: CDEFCDEHABAC, Pattern not found with at most 2 mismatches.
+String: GHIJKLABACDa, Pattern not found with at most 2 mismatches.
+String: PQRSTUABACDX, Pattern locations (with at most 2 mismatches): [6]
+String: VWXYZABACDcA, Pattern locations (with at most 2 mismatches): [5]
+```
+💡 Key concept:
+1. Input parameters:
+ - ``Text`` : DNA strings where we search for approximate matches
+ - ``Pattern`` : The pattern we're trying to locate
+ - ``max_mismatches`` : The tolerance for mismatches between the pattern and substrings
+2. For each possible substring of ``text`` compare it to pattern character by character and Count mismatches and stop early if they exceed ``max_mismatches``
+3. Add valid starting indices to the locations list
+4. The starting indices of all substrings in ``text`` that match the pattern within the mismatch threshold
+
