@@ -29,3 +29,13 @@ The primary topics involved here looks like:
 Now season 3 and the upcoming last season involves a bit of Umbrealla type of Code where I will walk you through each and every type of functions seperately and then finally after using that small function codes we will make something very meaningful out of it. 
 
 Therefore, I encourage you to jus stick with me and just enjoy the miracle or magic that you are about to experince at the end durning this journey.
+
+The primary topics covered here are:
+1. Basic Numpy Array understanding
+2. Counting Nucleotide Frequencies in DNA
+3. Profile Matrix from DNA
+4. Consensus Sequence from DNA
+5. Scoring DNA Motifs
+6. Profile Most Probable K-mer
+7. Greedy Motif Search (the finale of all - the main standalone function which uses all the above function in the form of Greedy Algorithm)
+8. Finding Patterns with Mismatches (extras)
