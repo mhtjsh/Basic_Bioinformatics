@@ -41,5 +41,5 @@ The primary topics covered here are:
 8. Finding Patterns with Mismatches (extras)
 
 ## 🧬 Season 4 - Colouring the Building an Final touch-ups
-Now the Series finale is this particualr season which leads to end of this particualar git repo and in turn ends your intial journey of understanding very major Bioinformatics algorithms as well.
+Now the Series finale is this particular season which leads to end of this particualar git repo and in turn ends your intial journey of understanding very major Bioinformatics algorithms as well.
 
