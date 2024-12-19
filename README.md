@@ -39,3 +39,7 @@ The primary topics covered here are:
 6. Profile Most Probable K-mer
 7. Greedy Motif Search (the finale of all - the main standalone function which uses all the above function in the form of Greedy Algorithm)
 8. Finding Patterns with Mismatches (extras)
+
+## 🧬 Season 4 - Colouring the Building an Final touch-ups
+Now the Series finale is this particualr season which leads to end of this particualar git repo and in turn ends your intial journey of understanding very major Bioinformatics algorithms as well.
+
