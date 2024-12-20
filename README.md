@@ -46,3 +46,9 @@ Now the Series finale is this particular season which leads to end of this parti
 Here primarirly we will cover 2 important topics 
 1. GreedyMotifSearch with Pseudocounts
 2. Randomized Motif Search
+
+
+### 🚀 And with that, this repository comes to a wrap!  
+But wait, there's more! Keep an eye out for other exciting repositories on **Bioinformatics**, **Computational Drug Design**, and **Next-Gen Sequencing** over on my GitHub.  
+
+That's all from my side for now. Until next time, this is your man **Mohit @mhtjsh** signing off. Cheers! ✌️  
