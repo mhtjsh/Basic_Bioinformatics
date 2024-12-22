@@ -14,26 +14,26 @@ They stabilize the profile matrix, preventing a probability of zero for any nucl
 
 🛠️ Program Code
 ```Python
-def GreedyMotifSearchWithPseudocounts(Dna, k, t):
+def GreedyMotifSearchWithPseudocounts(DNA, k, t):
     """
     Perform Greedy Motif Search with Pseudocounts.
 
     Args:
-        Dna (list): A list of DNA sequences.
+        DNA (list): A list of DNA sequences.
         k (int): Length of the motif.
-        t (int): Number of sequences in Dna.
+        t (int): Number of sequences in DNA.
 
     Returns:
         list: The best motifs found in the DNA sequences.
     """
-    n = len(Dna[0])
-    best_motifs = [Dna[i][:k] for i in range(t)]
+    n = len(DNA[0])
+    best_motifs = [DNA[i][:k] for i in range(t)]
 
     for i in range(n - k + 1):
-        motifs = [Dna[0][i:i + k]]
+        motifs = [DNA[0][i:i + k]]
         for j in range(1, t):
             profile = ProfileWithPseudocounts(motifs)
-            motifs.append(ProfileMostProbableKmer(Dna[j], k, profile))
+            motifs.append(ProfileMostProbableKmer(DNA[j], k, profile))
         if Score(motifs) < Score(best_motifs):
             best_motifs = motifs
 
@@ -107,7 +107,7 @@ def Consensus(motifs):
     return consensus
 
 #Example input
-Dna = [
+DNA = [
     "GGCGTTCAGGCA",
     "AAGAATCAGTCA",
     "CAAGGAGTTCGC",
@@ -117,19 +117,19 @@ Dna = [
 k = 3
 t = 5
 
-result = GreedyMotifSearchWithPseudocounts(Dna, k, t)
+result = GreedyMotifSearchWithPseudocounts(DNA, k, t)
 print("Best Motifs:", result)
 ```
 Output of which looks something like this:
 ```
-Best Motifs: ['GGC', 'AAG', 'CAA', 'CAC', 'CAA']
+Best Motifs: ['TTC', 'ATC', 'TTC', 'ATC', 'TTC']
 ```
 
 💡 Key concept of ``GreedyMotifSearch with Pseudocounts``
 1. Input
  - ``DNA`` : list of DNA sequences
  - ``k`` : length of the motif to search for
- - ``t`` : number of DNA sequences in Dna
+ - ``t`` : number of DNA sequences in DNA
 2. Randomized Initialization: Selects random k-mers (substrings of length k) from each DNA sequence as initial motifs
 3. Iterative Refinement:
  -Score: Measures dissimilarity from the consensus sequence (lower is better)
@@ -148,38 +148,38 @@ Best Motifs: ['GGC', 'AAG', 'CAA', 'CAC', 'CAA']
 ```Python
 import random
 
-def RandomizedMotifSearch(Dna, k, t):
+def RandomizedMotifSearch(DNA, k, t):
     """
     Perform Randomized Motif Search to find motifs in DNA sequences.
 
     Args:
-        Dna (list): A list of DNA sequences.
+        DNA (list): A list of DNA sequences.
         k (int): Length of the motif.
-        t (int): Number of sequences in Dna.
+        t (int): Number of sequences in DNA.
 
     Returns:
         list: The best motifs found.
     """
     # Initialize motifs randomly
-    motifs = RandomMotifs(Dna, k)
+    motifs = RandomMotifs(DNA, k)
     best_motifs = motifs
 
     while True:
         profile = ProfileWithPseudocounts(motifs)
-        motifs = MotifsFromProfile(Dna, k, profile)
+        motifs = MotifsFromProfile(DNA, k, profile)
         if Score(motifs) < Score(best_motifs):
             best_motifs = motifs
         else:
             return best_motifs
 
 
-def RandomMotifs(Dna, k):
+def RandomMotifs(DNA, k):
     """
     Generate a random set of motifs from DNA sequences.
     """
-    t = len(Dna)
+    t = len(DNA)
     motifs = []
-    for sequence in Dna:
+    for sequence in DNA:
         start = random.randint(0, len(sequence) - k)
         motifs.append(sequence[start:start + k])
     return motifs
@@ -204,11 +204,11 @@ def ProfileWithPseudocounts(motifs):
     return profile
 
 
-def MotifsFromProfile(Dna, k, profile):
+def MotifsFromProfile(DNA, k, profile):
     """
     Generate motifs from a profile matrix for a set of DNA sequences.
     """
-    return [ProfileMostProbablePattern(seq, k, profile) for seq in Dna]
+    return [ProfileMostProbablePattern(seq, k, profile) for seq in DNA]
 
 
 def ProfileMostProbablePattern(Text, k, profile):
@@ -255,7 +255,7 @@ def Consensus(motifs):
 
 
 # Example Input
-Dna = [
+DNA = [
     "CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA",
     "GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG",
     "TAGTACCGAGACCGAAAGAAGTATACAGGCGT",
@@ -263,22 +263,22 @@ Dna = [
     "AATCCACCAGCTCCACGTGCAATGTTGGCCTA"
 ]
 k = 8
-t = len(Dna)
+t = len(DNA)
 
 # Run the Randomized Motif Search
-result = RandomizedMotifSearch(Dna, k, t)
+result = RandomizedMotifSearch(DNA, k, t)
 print("Best Motifs:", result)
 ```
 Output which looks something like this:
 ```
-Best Motifs: ['TCTCGGGG', 'CCAAGGTG', 'TACAGGCG', 'TTCAGGTG', 'TCCACGTG']
+Best Motifs: ['GGGGGTGT', 'GTAAGTGC', 'CCGAGACC', 'TCAGGTGC', 'CCACGTGC']
 ```
 💡 Key concept of ``RandomizedMotifSearch``
 1. Input:
  - ``DNA`` - list of DNA sequences, each of the same length
  - ``k`` - length of the motifs (k-mers) to search for
  - ``t`` - number of DNA sequences provided
-2. Random Motif Initialization: Selects one random k-mer from each sequence in ``Dna`` as the initial motif set using the ``RandomMotifs`` function
+2. Random Motif Initialization: Selects one random k-mer from each sequence in ``DNA`` as the initial motif set using the ``RandomMotifs`` function
 3. Profile Matrix Construction (with Pseudocounts):
  - Generates a profile matrix based on the frequency of nucleotides in the motifs, adding pseudocounts (+1 for stability)
  - Normalizes frequencies to probabilities for each position in the motif
