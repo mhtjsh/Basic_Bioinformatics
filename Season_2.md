@@ -102,9 +102,7 @@ print(FasterSymbolArray("ATGCATATGACTACTAGATACTGATACTGATACATA", "AT"))
 
 Output of which looks something like this:
 ```
-{0: 3, 1: 3, 2: 3, 3: 3, 4: 3, 5: 3, 6: 3, 7: 3, 8: 3, 9: 3, 10: 3, 11: 3, 12: 3, 13: 3, 14: 3,
-15: 3, 16: 3, 17: 3, 18: 3, 19: 3, 20: 3, 21: 3, 22: 3, 23: 3, 24: 3, 25: 3, 26: 3, 27: 3, 28: 3,
-29: 3, 30: 3, 31: 3, 32: 3, 33: 3, 34: 3, 35: 3}
+{0: 3, 1: 2, 2: 2, 3: 2, 4: 2, 5: 1, 6: 2, 7: 1, 8: 1, 9: 1, 10: 1, 11: 1, 12: 2, 13: 2, 14: 2, 15: 2, 16: 3, 17: 3, 18: 2, 19: 3, 20: 3, 21: 3, 22: 3, 23: 4, 24: 3, 25: 4, 26: 4, 27: 4, 28: 4, 29: 4, 30: 3, 31: 3, 32: 3, 33: 3, 34: 2, 35: 2}
 ```
 
 💡 Key concept of ``FasterSymbolArray`` is:
@@ -180,7 +178,7 @@ print(SkewArray("GATACACTTCCCGAGTAGGTACTG"))
 ```
 
 Output of both looks something like this:
-``[0, 0, -1, 0, 1, 2, 3, 2, 1, 1, 1, 2, 3, 2, 1, 0, -1, -1, -2, -1, -2]``
+``[0, -1, -1, -1, 0, 1, 2, 1, 1, 1, 0, 1, 2, 1, 0, 0, 0, 0, -1, 0, -1, -2]``
 
 💡 Key concept of ``SkewArray``
 1. Skew Initialisation : The skew starts at 0, representing a balance between G and C at the beginning of the genome. ``skew = [0]``
@@ -231,7 +229,7 @@ def MinimumSkew(Genome):
 print(MinimumSkew("GATACACTTCCCGAGTAGGTACTG"))
 ```
 
-Output of which looks something like this ``[10, 23]``
+Output of which looks something like this ``[12]``
 
 💡 Key Concept of ``MinimumSkew`` is:
 1. SkewArray: Calculates the cumulative skew for each position in the genome and gives a dictionary where keys represent genome positions and values represent cumulative skew values as output which looks like
@@ -249,7 +247,7 @@ for key, value in skew_raw.items():
     if value == min_value:
         positions.append(key)
 ```
-3. Output: The minimum skew value occurs at positions 10 and 23 (here), which signifies that these positions represent regions where the cumulative G-C imbalance is at its lowest. Also, these are likely candidates for replication origin sites in the genome. 
+3. Output: The minimum skew value occurs at position 12 (here), which signifies that this position represents regions where the cumulative G-C imbalance is at its lowest. Also, these are likely candidates for replication origin sites in the genome. 
 
 ### 🐍 Ep 4 Calculating Hamming Distance between DNA sequence
 🧠 What is Hamming Distance?
@@ -289,13 +287,13 @@ seq2 = "ATGCCTTACCTAGATGCAATGACGGACGTATTCCTTTTGCCTCAACGGCTCCT"
 print(HammingDistance(seq1, seq2))
 ```
 
-Output of which is ``37``
+Output of which is ``43``
 
 💡 Key Concept of ``HammingFunction`` is:
 1. It iterate over the position of both the sequences
 2. Compare the corresponding characters at each position.
 3. If the characters differ, increment the counter.
-4. Output ie. ``37`` shows that the two sequences differs at 37 positions, which shows that there are 37 mutations in the between the DNA sequence.
+4. The output ``43`` shows that the two sequences differs at 43 positions, which shows that there are 43 single nucleotide mutations between the DNA sequences.
 
 ### 🐍 Ep 5 Approximate Pattern Matching in DNA Sequences
 
@@ -357,7 +355,7 @@ Pattern = "ATAG"
 d = 1
 print(ApproximatePatternMatching(Text, Pattern, d))
 ```
-Output of which looks something like this: ``[6, 17, 23]``
+Output of which looks something like this: ``[4, 13, 17, 23, 29]``
 
 💡 Key concept of ``ApproximatePatternMatching``
 1. We are giving 3 input variables:
