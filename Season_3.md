@@ -1,9 +1,9 @@
 ## 🧬 Season 3 - Adding Concrete slurry in the Skeletal Structure
-Now season 3 and the upcoming last season involves a bit of Umbrealla type of Code where I will walk you through each and every type of functions seperately and then finally after using that small function codes we will make something very meaningful out of it. 
+Now season 3 and the upcoming last season involves a bit of Umbrella type of Code where I will walk you through each and every type of functions separately and then finally after using that small function codes we will make something very meaningful out of it. 
 
-Therefore, I encourage you to jus stick with me and just enjoy the miracle or magic that you are about to experince at the end durning this journey.
+Therefore, I encourage you to just stick with me and just enjoy the miracle or magic that you are about to experience at the end during this journey.
 
-Now to undertstand the further episodes (Ep) I would urge you to take a look at _NumPy_ an intresting and very efficient Python library to sort and visualize the Array is been used. I would urge you to go through the [_NumPy_ Documentation](https://numpy.org/doc/) a bit and this will help you to understand all the further episodes with a breeze.
+Now to understand the further episodes (Ep) I would urge you to take a look at _NumPy_ an interesting and very efficient Python library to sort and visualize the Array is been used. I would urge you to go through the [_NumPy_ Documentation](https://numpy.org/doc/) a bit and this will help you to understand all the further episodes with a breeze.
 
 ### 🐍 Ep 0 - Basic Numpy Array understanding from DNA Motif Matrix
 A motif matrix represents aligned DNA sequences. Each row corresponds to a sequence, and each column represents a position in the alignment.
@@ -249,7 +249,7 @@ print("Consensus Sequence:", consensus_sequence)
 ```
 Output of which looks like ``Consensus Sequence: CACCTA``
 
-💡 Key Concept of ``ConsenusMotif``
+💡 Key Concept of ``ConsensusMotif``
 1. A list of aligned DNA sequences (``motif``) of equal length as input.
 2. Use the ``Count`` function to calculate the frequencies of each nucleotide at every position.
 3. Identify the nucleotide with the highest frequency at each position and append it to the consensus sequence.
@@ -338,7 +338,7 @@ Motif Score: 14
 3. Count mismatches at every position and sum them up to calculate the score
 4. The total number of mismatches (score) between the motif and its consensus sequence as output.
 
-### 🐍 Ep 5 - Profile Most Probable K-mer (Similar to ``ConsenusMotif``)
+### 🐍 Ep 5 - Profile Most Probable K-mer (Similar to ``ConsensusMotif``)
 
 The ProfileMostProbableKmer function is a utility for identifying the most likely k-mer (substring of length k) in a given DNA sequence (Text) based on a given profile matrix. 
 

@@ -1,5 +1,5 @@
 ## 🧬 Season 1 - Diggin down deep
-### 🐍 Ep 1 - Let's calcualte the basic Pattern given in the series of Genetic sequence code
+### 🐍 Ep 1 - Let's calculate the basic Pattern given in the series of Genetic sequence code
 🛠️ Dataset code
 ```Python
 text = 'ATGCATATGACTACTAGATACTGATACTGATACATA'
@@ -90,14 +90,14 @@ Output of this code looks something like this
 ['GCA', 'CAT', 'ATG']
 ```
 By combining a frequency map with a simple search for the maximum value, we can quickly identify the most frequent patterns (k-mers) in any DNA sequence. 
-We found a very specific type of Output where this motif seq have the most occurance in the Parent genomic sequence.
+We found a very specific type of Output where this motif seq have the most occurrence in the Parent genomic sequence.
 
 This is a fundamental step for motif discovery and genomic analysis. 
 
 ### 🐍 Ep 4 - Complementary DNA String
-Now I know very well that ``BioPython`` provides a very short/single line of code to do this i.e. ``Bio.Seq.complement()``  but just to get hold of the python and the essence of how does python interpret this single line in ``Biopython library`` would be very intresting to understand.
+Now I know very well that ``BioPython`` provides a very short/single line of code to do this i.e. ``Bio.Seq.complement()``  but just to get hold of the python and the essence of how does python interpret this single line in ``Biopython library`` would be very interesting to understand.
 
-Complementing is bascially:
+Complementing is basically:
 - **A** ↔ **T**
 - **C** ↔ **G**
 

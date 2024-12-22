@@ -1,5 +1,5 @@
 ## 🧬 Season 2 - Adding steel rods as skeleton for the building
-A bit more complex and tough concepts are being touched upon which needed a lot more efforts to be understood are taken into account here, and I am giving my level best to make it most simpler interpreation of that concept to understand and trying to address each and every question which I had and possibly you could have durning your learning journey
+A bit more complex and tough concepts are being touched upon which needed a lot more efforts to be understood are taken into account here, and I am giving my level best to make it most simpler interpretation of that concept to understand and trying to address each and every question which I had and possibly you could have during your learning journey
 
 ### 🐍 Ep 1 - Symbol array in DNA sequence
 🧠 What exactly is symbol array?
@@ -63,7 +63,7 @@ The ``FasterSymbolArray`` function is an optimized version of the ``SymbolArray`
 🧠 Why is it Faster?
  - Compared to SymbolArray, which recalculates the PatternCount from scratch for every position ``FasterSymbolArray`` avoids redundant computations by only adjusting the count when the window slides.
 
-    Now I know this dosen't makes a much of difference at a smaller level but as we upscale the production it increases the time required to compile the program, for CS enthusiasts it is known as ``Time Complexity``, so here by using ``FasterSymbolArray`` it reduces the time complexity significantly by linearizing it to _O(n)_ as compared to the normal appraoch.
+    Now I know this doesn't makes a much of difference at a smaller level but as we upscale the production it increases the time required to compile the program, for CS enthusiasts it is known as ``Time Complexity``, so here by using ``FasterSymbolArray`` it reduces the time complexity significantly by linearizing it to _O(n)_ as compared to the normal approach.
 
 🛠️ Program Code
 ```Python
@@ -108,7 +108,7 @@ Output of which looks something like this:
 ```
 
 💡 Key concept of ``FasterSymbolArray`` is:
-1. ``PatternCount`` fucntion intialization which Counts how many times a pattern (``symbol``) occurs in a given text.
+1. ``PatternCount`` function initialization which Counts how many times a pattern (``symbol``) occurs in a given text.
 2. Calculation of ``ExtendedGenome`` to simulate a **circular genome** and ensure patterns near the end of the genome can "wrap around."
    ```Python
    ExtendedGenome = Genome + Genome[0:n//2]
@@ -139,7 +139,7 @@ This is how the graph looks like:
 
 🧠 How is it used in BioInformatics?
 
-The ``SkewArray`` function calculates the cumulative skew of a DNA sequence, which is the difference between the number of G and C nucleotides encountered at each position. This is particularly useful for identifying replication origins where the imbalance between G and C is at its minimum, which we will also disucss which will be ``MinimumSkew``
+The ``SkewArray`` function calculates the cumulative skew of a DNA sequence, which is the difference between the number of G and C nucleotides encountered at each position. This is particularly useful for identifying replication origins where the imbalance between G and C is at its minimum, which we will also discuss which will be ``MinimumSkew``
 - **G** increases the skew value by +1.
 - **C** decreases the skew value by -1.
 - **A** and **T** do not affect the skew.
@@ -183,7 +183,7 @@ Output of both looks something like this:
 ``[0, 0, -1, 0, 1, 2, 3, 2, 1, 1, 1, 2, 3, 2, 1, 0, -1, -1, -2, -1, -2]``
 
 💡 Key concept of ``SkewArray``
-1. Skew Initialsation : The skew starts at 0, representing a balance between G and C at the beginning of the genome. ``skew = [0]``
+1. Skew Initialisation : The skew starts at 0, representing a balance between G and C at the beginning of the genome. ``skew = [0]``
 2. Skew Update Rule: For each nucleotide:
    - G - +1 to current Skew
    - C - -1 to current Skew
@@ -195,7 +195,7 @@ elif Genome[i] == 'C':
 else:
     skew.append(skew[-1])
 ```
-3. Cummulative calculation: The skew is calculated cumulatively along the genome, building a sequence of skew values.
+3. Cumulative calculation: The skew is calculated cumulatively along the genome, building a sequence of skew values.
 4. Returning the output in a list where each element represents the skew at that position in the genome.
    
 ### 🐍 Ep 3 Minimum Skew in a DNA Sequence
@@ -251,14 +251,14 @@ for key, value in skew_raw.items():
 ```
 3. Output: The minimum skew value occurs at positions 10 and 23 (here), which signifies that these positions represent regions where the cumulative G-C imbalance is at its lowest. Also, these are likely candidates for replication origin sites in the genome. 
 
-### 🐍 Ep 4 Calcualting Hamming Distance between DNA sequence
+### 🐍 Ep 4 Calculating Hamming Distance between DNA sequence
 🧠 What is Hamming Distance?
 
 The Hamming distance between two strings of equal length is the number of positions at which the corresponding elements (characters or nucleotides) are different.
 
 🧠 Where exactly  is ``HammingDistance`` used?
 
-It is primarirly used in **Mutation Detection** and **Sequence Comparision**
+It is primarirly used in **Mutation Detection** and **Sequence Comparison**
 
 🛠️ Program Code
 ```Python
@@ -357,7 +357,7 @@ Pattern = "ATAG"
 d = 1
 print(ApproximatePatternMatching(Text, Pattern, d))
 ```
-Output of which looks somehting like this: ``[6, 17, 23]``
+Output of which looks something like this: ``[6, 17, 23]``
 
 💡 Key concept of ``ApproximatePatternMatching``
 1. We are giving 3 input variables:
@@ -365,7 +365,7 @@ Output of which looks somehting like this: ``[6, 17, 23]``
   - **Pattern**: The motif or sequence to search for
   - **d**: Maximum allowed mismatches (Hamming distance)
 2. Logic:
-  - Exract every substring of ``Text`` with the same length as ``Pattern``
+  - Extract every substring of ``Text`` with the same length as ``Pattern``
   - Calculate the **Hamming Distance** between the substring and the pattern
   - If the Hamming Distance is ≤ ``d``, record the position
 3. Output tells that the pattern "ATAG" (here) appears approximately at positions 6, 17, and 23 in the sequence, where each match has exact 1 mismatch i.e. ``d=1``
