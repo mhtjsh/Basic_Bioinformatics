@@ -7,10 +7,10 @@ A bit more complex and tough concepts are being touched upon which needed a lot 
   This approach is particularly useful when analyzing circular genomes or trying to identify regions that are enriched with a particular symbol.
 
 🧠 How does it actually work?
-  - Suppose, input Genome ``ATGATAGTCCGAAA`` have length of _n_ = 13
+  - Suppose, input Genome ``ATGATAGTCCGAAA`` has a length of _n_ = 14
   - The function extends this genome to simulate a circular genome by appending half of the genome (_n/2_) to the end
-    - Extended Genome ``ATGATAGTCCGAAA`` → ``ATGATAGTCCGAAAATGA``
-  - For each position _i_ in the genome, it calculates the count of the symbol "A" within a half-length window (n/2=6) starting at _i_
+    - Extended Genome ``ATGATAGTCCGAAA`` → ``ATGATAGTCCGAAAATGATAG``
+  - For each position _i_ in the genome, it calculates the count of the symbol "A" within a half-length window (n/2=7) starting at _i_
 
 🧠 Why Half ``n/2`` the Genome length?
 - Because of the circularized Genome nature i.e. By extending the genome (``ExtendedGenome``), you ensure that sliding windows near the end of the sequence "wrap around" and include the beginning of the sequence. This avoids missing patterns that cross the genome's end. Also, dividing the genome into segments of half its length is a common approach to detect local enrichments of a nucleotide.
@@ -42,15 +42,15 @@ print(SymbolArray("ATGATAGTCCGAAA", "A"))
 
 Output of which something looks like this:
 ```
-{0: 4, 1: 4, 2: 4, 3: 3, 4: 3, 5: 3, 6: 3, 7: 3, 8: 3, 9: 4, 10: 4, 11: 4, 12: 4}
+{0: 3, 1: 2, 2: 2, 3: 2, 4: 1, 5: 2, 6: 2, 7: 3, 8: 4, 9: 4, 10: 4, 11: 5, 12: 4, 13: 4}
 ```
 which basically explains us:
 1. Each key (e.g., ``0``, ``1``, ``2``...) represents a starting position in the genome.
-2. Each value (e.g., ``4``, ``3``) indicates how many times the symbol "A" appears in a window of size 6 starting from that position.
+2. Each value (e.g., ``3``, ``2``) indicates how many times the symbol "A" appears in a window of size 7 starting from that position.
 
 For example :
-- At position ``0``, the window is ``ATGATA`` → "A" appears 4 times.
-- At position ``3``, the window is ``ATAGTC`` → "A" appears 3 times.
+- At position ``0``, the window is ``ATGATA`` → "A" appears 3 times.
+- At position ``3``, the window is ``ATAGTC`` → "A" appears 2 times.
 - At position ``10``, the window is ``AAAATG`` → "A" appears 4 times.
 
 💡 In a nutshell,
