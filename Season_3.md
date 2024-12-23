@@ -1,9 +1,9 @@
 ## 🧬 Season 3 - Adding Concrete slurry in the Skeletal Structure
-Now season 3 and the upcoming last season involves a bit of Umbrealla type of Code where I will walk you through each and every type of functions seperately and then finally after using that small function codes we will make something very meaningful out of it. 
+Now season 3 and the upcoming last season involves a bit of Umbrella type of Code where I will walk you through each and every type of functions separately and then finally after using that small function codes we will make something very meaningful out of it. 
 
-Therefore, I encourage you to jus stick with me and just enjoy the miracle or magic that you are about to experince at the end durning this journey.
+Therefore, I encourage you to just stick with me and just enjoy the miracle or magic that you are about to experience at the end during this journey.
 
-Now to undertstand the further episodes (Ep) I would urge you to take a look at _NumPy_ an intresting and very efficient Python library to sort and visualize the Array is been used. I would urge you to go through the [_NumPy_ Documentation](https://numpy.org/doc/) a bit and this will help you to understand all the further episodes with a breeze.
+Now to understand the further episodes (Ep) I would urge you to take a look at _NumPy_ an interesting and very efficient Python library to sort and visualize the Array is been used. I would urge you to go through the [_NumPy_ Documentation](https://numpy.org/doc/) a bit and this will help you to understand all the further episodes with a breeze.
 
 ### 🐍 Ep 0 - Basic Numpy Array understanding from DNA Motif Matrix
 A motif matrix represents aligned DNA sequences. Each row corresponds to a sequence, and each column represents a position in the alignment.
@@ -94,10 +94,10 @@ print("Nucleotide Frequency Count:\n", counts)
 Output of which looks something like this:
 ```
 Nucleotide Frequency Count:
- {'A': [2, 1, 0, 1, 0, 2],
-  'C': [2, 3, 4, 1, 2, 0],
-  'G': [0, 1, 1, 2, 1, 2],
-  'T': [1, 0, 0, 3, 4, 1]}
+ {'A': [1, 2, 1, 0, 0, 2],
+  'C': [2, 1, 4, 2, 0, 0],
+  'G': [1, 1, 0, 2, 1, 1],
+  'T': [1, 1, 0, 1, 4, 2]}
 ```
 
 💡 Key Concept of ``CountMotif``
@@ -173,10 +173,10 @@ print("Profile Matrix:\n", profile_matrix)
 Output of which looks something like this:
 ```
 Profile Matrix:
- {'A': [0.4, 0.2, 0.0, 0.2, 0.0, 0.4],
-  'C': [0.4, 0.6, 0.8, 0.2, 0.4, 0.0],
-  'G': [0.0, 0.2, 0.2, 0.4, 0.2, 0.4],
-  'T': [0.2, 0.0, 0.0, 0.6, 0.8, 0.2]}
+ {'A': [0.2, 0.4, 0.2, 0.0, 0.0, 0.4],
+  'C': [0.4, 0.2, 0.8, 0.4, 0.0, 0.0],
+  'G': [0.2, 0.2, 0.0, 0.4, 0.2, 0.2],
+  'T': [0.2, 0.2, 0.0, 0.2, 0.8, 0.4]}
 ```
 
 💡 Key Concept of ``ProfileMotif``
@@ -249,7 +249,7 @@ print("Consensus Sequence:", consensus_sequence)
 ```
 Output of which looks like ``Consensus Sequence: CACCTA``
 
-💡 Key Concept of ``ConsenusMotif``
+💡 Key Concept of ``ConsensusMotif``
 1. A list of aligned DNA sequences (``motif``) of equal length as input.
 2. Use the ``Count`` function to calculate the frequencies of each nucleotide at every position.
 3. Identify the nucleotide with the highest frequency at each position and append it to the consensus sequence.
@@ -303,6 +303,7 @@ def Score(motif):
         int: The total score (number of mismatches with the consensus sequence).
     """
     consensus = Consensus(motif)  # Find consensus sequence
+    print("Consensus Sequence:", consensus)
     k = len(motif[0])  # Length of each sequence
     score = 0  # Initialize score
     
@@ -338,7 +339,7 @@ Motif Score: 14
 3. Count mismatches at every position and sum them up to calculate the score
 4. The total number of mismatches (score) between the motif and its consensus sequence as output.
 
-### 🐍 Ep 5 - Profile Most Probable K-mer (Similar to ``ConsenusMotif``)
+### 🐍 Ep 5 - Profile Most Probable K-mer (Similar to ``ConsensusMotif``)
 
 The ProfileMostProbableKmer function is a utility for identifying the most likely k-mer (substring of length k) in a given DNA sequence (Text) based on a given profile matrix. 
 
@@ -429,27 +430,27 @@ The ``GreedyMotifSearch`` function is a simple yet effective algorithm to identi
 
 🛠️ Program Code
 ```Python
-def GreedyMotifSearch(Dna, k, t):
+def GreedyMotifSearch(DNA, k, t):
     """
     Perform Greedy Motif Search to find the best motifs in DNA sequences.
 
     Args:
-        Dna (list): A list of DNA sequences.
+        DNA (list): A list of DNA sequences.
         k (int): Length of the motif.
-        t (int): Number of sequences in Dna.
+        t (int): Number of sequences in DNA.
 
     Returns:
         list: The best motifs found in the DNA sequences.
     """
-    n = len(Dna[0])  # Length of each DNA sequence
-    best_motifs = [Dna[i][0:k] for i in range(t)]  # Initialize best motifs with first k-mers
+    n = len(DNA[0])  # Length of each DNA sequence
+    best_motifs = [DNA[i][0:k] for i in range(t)]  # Initialize best motifs with first k-mers
 
     # Iterate through all possible k-mers in the first sequence
     for i in range(n - k + 1):
-        motifs = [Dna[0][i:i + k]]  # Start with a single k-mer
+        motifs = [DNA[0][i:i + k]]  # Start with a single k-mer
         for j in range(1, t):  # Build motifs for the remaining sequences
             profile = Profile(motifs[:j])  # Calculate the profile matrix for current motifs
-            motifs.append(ProfileMostProbableKmer(Dna[j], k, profile))  # Find most probable k-mer
+            motifs.append(ProfileMostProbableKmer(DNA[j], k, profile))  # Find most probable k-mer
         if Score(motifs) < Score(best_motifs):  # Update best motifs if a better score is found
             best_motifs = motifs
 
@@ -524,7 +525,7 @@ def Consensus(motifs):
 
 
 # Example Input
-Dna = [
+DNA = [
     "GGCGTTCAGGCA",
     "AAGAATCAGTCA",
     "CAAGGAGTTCGC",
@@ -535,12 +536,12 @@ k = 3
 t = 5
 
 # Find the best motifs
-result = GreedyMotifSearch(Dna, k, t)
+result = GreedyMotifSearch(DNA, k, t)
 print("Best Motifs:", result)
 ```
 Output of which looks something like this:
 ```
-Best Motifs: ['GGC', 'AAG', 'CAA', 'CAC', 'CAA']
+Best Motifs: ['CAG', 'CAG', 'CAA', 'CAA', 'CAA']
 ```
 
 💡 Key Concept:
@@ -553,7 +554,7 @@ Best Motifs: ['GGC', 'AAG', 'CAA', 'CAC', 'CAA']
 4. Update the best motifs based on the Score function
 5. The best motifs (one from each sequence) that minimize the score
 
-### End of the episode with Greedy algorithm Search being the final algorithm which involves congomaration of all the functions used and understood earlier.
+### End of the episode with Greedy algorithm Search being the final algorithm which involves conglomeration of all the functions used and understood earlier.
 
 ### 🐍 Ep Extended - Finding Patterns with Mismatches
 This script identifies occurrences of a specific pattern within a list of DNA strings, allowing for a defined number of mismatches. It is particularly useful for locating approximate matches in sequences where errors or variations might occur.
@@ -614,9 +615,14 @@ Output of which looks something like this:
 ```
 String: XABACDXABACD, Pattern locations (with at most 2 mismatches): [1, 7]
 String: CDEFCDEHABAC, Pattern not found with at most 2 mismatches.
-String: GHIJKLABACDa, Pattern not found with at most 2 mismatches.
+String: GHIJKLABACDa, Pattern locations (with at most 2 mismatches): [6]
 String: PQRSTUABACDX, Pattern locations (with at most 2 mismatches): [6]
 String: VWXYZABACDcA, Pattern locations (with at most 2 mismatches): [5]
+String: HIJKLMNOPQRST, Pattern not found with at most 2 mismatches.
+String: CDEFGHIJKLMN, Pattern not found with at most 2 mismatches.
+String: QRSTUVWXYZAB, Pattern not found with at most 2 mismatches.
+String: EFGHIJKLMNOP, Pattern not found with at most 2 mismatches.
+String: UVWXYZABCDEF, Pattern not found with at most 2 mismatches.
 ```
 💡 Key concept:
 1. Input parameters:

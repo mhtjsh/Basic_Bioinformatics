@@ -1,5 +1,5 @@
 ## 🧬 Season 2 - Adding steel rods as skeleton for the building
-A bit more complex and tough concepts are being touched upon which needed a lot more efforts to be understood are taken into account here, and I am giving my level best to make it most simpler interpreation of that concept to understand and trying to address each and every question which I had and possibly you could have durning your learning journey
+A bit more complex and tough concepts are being touched upon which needed a lot more efforts to be understood are taken into account here, and I am giving my level best to make it most simpler interpretation of that concept to understand and trying to address each and every question which I had and possibly you could have during your learning journey
 
 ### 🐍 Ep 1 - Symbol array in DNA sequence
 🧠 What exactly is symbol array?
@@ -7,10 +7,10 @@ A bit more complex and tough concepts are being touched upon which needed a lot 
   This approach is particularly useful when analyzing circular genomes or trying to identify regions that are enriched with a particular symbol.
 
 🧠 How does it actually work?
-  - Suppose, input Genome ``ATGATAGTCCGAAA`` have length of _n_ = 13
+  - Suppose, input Genome ``ATGATAGTCCGAAA`` has a length of _n_ = 14
   - The function extends this genome to simulate a circular genome by appending half of the genome (_n/2_) to the end
-    - Extended Genome ``ATGATAGTCCGAAA`` → ``ATGATAGTCCGAAAATGA``
-  - For each position _i_ in the genome, it calculates the count of the symbol "A" within a half-length window (n/2=6) starting at _i_
+    - Extended Genome ``ATGATAGTCCGAAA`` → ``ATGATAGTCCGAAAATGATAG``
+  - For each position _i_ in the genome, it calculates the count of the symbol "A" within a half-length window (n/2=7) starting at _i_
 
 🧠 Why Half ``n/2`` the Genome length?
 - Because of the circularized Genome nature i.e. By extending the genome (``ExtendedGenome``), you ensure that sliding windows near the end of the sequence "wrap around" and include the beginning of the sequence. This avoids missing patterns that cross the genome's end. Also, dividing the genome into segments of half its length is a common approach to detect local enrichments of a nucleotide.
@@ -42,15 +42,15 @@ print(SymbolArray("ATGATAGTCCGAAA", "A"))
 
 Output of which something looks like this:
 ```
-{0: 4, 1: 4, 2: 4, 3: 3, 4: 3, 5: 3, 6: 3, 7: 3, 8: 3, 9: 4, 10: 4, 11: 4, 12: 4}
+{0: 3, 1: 2, 2: 2, 3: 2, 4: 1, 5: 2, 6: 2, 7: 3, 8: 4, 9: 4, 10: 4, 11: 5, 12: 4, 13: 4}
 ```
 which basically explains us:
 1. Each key (e.g., ``0``, ``1``, ``2``...) represents a starting position in the genome.
-2. Each value (e.g., ``4``, ``3``) indicates how many times the symbol "A" appears in a window of size 6 starting from that position.
+2. Each value (e.g., ``3``, ``2``) indicates how many times the symbol "A" appears in a window of size 7 starting from that position.
 
 For example :
-- At position ``0``, the window is ``ATGATA`` → "A" appears 4 times.
-- At position ``3``, the window is ``ATAGTC`` → "A" appears 3 times.
+- At position ``0``, the window is ``ATGATA`` → "A" appears 3 times.
+- At position ``3``, the window is ``ATAGTC`` → "A" appears 2 times.
 - At position ``10``, the window is ``AAAATG`` → "A" appears 4 times.
 
 💡 In a nutshell,
@@ -63,7 +63,7 @@ The ``FasterSymbolArray`` function is an optimized version of the ``SymbolArray`
 🧠 Why is it Faster?
  - Compared to SymbolArray, which recalculates the PatternCount from scratch for every position ``FasterSymbolArray`` avoids redundant computations by only adjusting the count when the window slides.
 
-    Now I know this dosen't makes a much of difference at a smaller level but as we upscale the production it increases the time required to compile the program, for CS enthusiasts it is known as ``Time Complexity``, so here by using ``FasterSymbolArray`` it reduces the time complexity significantly by linearizing it to _O(n)_ as compared to the normal appraoch.
+    Now I know this doesn't makes a much of difference at a smaller level but as we upscale the production it increases the time required to compile the program, for CS enthusiasts it is known as ``Time Complexity``, so here by using ``FasterSymbolArray`` it reduces the time complexity significantly by linearizing it to _O(n)_ as compared to the normal approach.
 
 🛠️ Program Code
 ```Python
@@ -102,13 +102,11 @@ print(FasterSymbolArray("ATGCATATGACTACTAGATACTGATACTGATACATA", "AT"))
 
 Output of which looks something like this:
 ```
-{0: 3, 1: 3, 2: 3, 3: 3, 4: 3, 5: 3, 6: 3, 7: 3, 8: 3, 9: 3, 10: 3, 11: 3, 12: 3, 13: 3, 14: 3,
-15: 3, 16: 3, 17: 3, 18: 3, 19: 3, 20: 3, 21: 3, 22: 3, 23: 3, 24: 3, 25: 3, 26: 3, 27: 3, 28: 3,
-29: 3, 30: 3, 31: 3, 32: 3, 33: 3, 34: 3, 35: 3}
+{0: 3, 1: 2, 2: 2, 3: 2, 4: 2, 5: 1, 6: 2, 7: 1, 8: 1, 9: 1, 10: 1, 11: 1, 12: 2, 13: 2, 14: 2, 15: 2, 16: 3, 17: 3, 18: 2, 19: 3, 20: 3, 21: 3, 22: 3, 23: 4, 24: 3, 25: 4, 26: 4, 27: 4, 28: 4, 29: 4, 30: 3, 31: 3, 32: 3, 33: 3, 34: 2, 35: 2}
 ```
 
 💡 Key concept of ``FasterSymbolArray`` is:
-1. ``PatternCount`` fucntion intialization which Counts how many times a pattern (``symbol``) occurs in a given text.
+1. ``PatternCount`` function initialization which Counts how many times a pattern (``symbol``) occurs in a given text.
 2. Calculation of ``ExtendedGenome`` to simulate a **circular genome** and ensure patterns near the end of the genome can "wrap around."
    ```Python
    ExtendedGenome = Genome + Genome[0:n//2]
@@ -139,7 +137,7 @@ This is how the graph looks like:
 
 🧠 How is it used in BioInformatics?
 
-The ``SkewArray`` function calculates the cumulative skew of a DNA sequence, which is the difference between the number of G and C nucleotides encountered at each position. This is particularly useful for identifying replication origins where the imbalance between G and C is at its minimum, which we will also disucss which will be ``MinimumSkew``
+The ``SkewArray`` function calculates the cumulative skew of a DNA sequence, which is the difference between the number of G and C nucleotides encountered at each position. This is particularly useful for identifying replication origins where the imbalance between G and C is at its minimum, which we will also discuss which will be ``MinimumSkew``
 - **G** increases the skew value by +1.
 - **C** decreases the skew value by -1.
 - **A** and **T** do not affect the skew.
@@ -180,10 +178,10 @@ print(SkewArray("GATACACTTCCCGAGTAGGTACTG"))
 ```
 
 Output of both looks something like this:
-``[0, 0, -1, 0, 1, 2, 3, 2, 1, 1, 1, 2, 3, 2, 1, 0, -1, -1, -2, -1, -2]``
+``[0, -1, -1, -1, 0, 1, 2, 1, 1, 1, 0, 1, 2, 1, 0, 0, 0, 0, -1, 0, -1, -2]``
 
 💡 Key concept of ``SkewArray``
-1. Skew Initialsation : The skew starts at 0, representing a balance between G and C at the beginning of the genome. ``skew = [0]``
+1. Skew Initialisation : The skew starts at 0, representing a balance between G and C at the beginning of the genome. ``skew = [0]``
 2. Skew Update Rule: For each nucleotide:
    - G - +1 to current Skew
    - C - -1 to current Skew
@@ -195,7 +193,7 @@ elif Genome[i] == 'C':
 else:
     skew.append(skew[-1])
 ```
-3. Cummulative calculation: The skew is calculated cumulatively along the genome, building a sequence of skew values.
+3. Cumulative calculation: The skew is calculated cumulatively along the genome, building a sequence of skew values.
 4. Returning the output in a list where each element represents the skew at that position in the genome.
    
 ### 🐍 Ep 3 Minimum Skew in a DNA Sequence
@@ -231,7 +229,7 @@ def MinimumSkew(Genome):
 print(MinimumSkew("GATACACTTCCCGAGTAGGTACTG"))
 ```
 
-Output of which looks something like this ``[10, 23]``
+Output of which looks something like this ``[12]``
 
 💡 Key Concept of ``MinimumSkew`` is:
 1. SkewArray: Calculates the cumulative skew for each position in the genome and gives a dictionary where keys represent genome positions and values represent cumulative skew values as output which looks like
@@ -249,16 +247,16 @@ for key, value in skew_raw.items():
     if value == min_value:
         positions.append(key)
 ```
-3. Output: The minimum skew value occurs at positions 10 and 23 (here), which signifies that these positions represent regions where the cumulative G-C imbalance is at its lowest. Also, these are likely candidates for replication origin sites in the genome. 
+3. Output: The minimum skew value occurs at position 12 (here), which signifies that this position represents regions where the cumulative G-C imbalance is at its lowest. Also, these are likely candidates for replication origin sites in the genome. 
 
-### 🐍 Ep 4 Calcualting Hamming Distance between DNA sequence
+### 🐍 Ep 4 Calculating Hamming Distance between DNA sequence
 🧠 What is Hamming Distance?
 
 The Hamming distance between two strings of equal length is the number of positions at which the corresponding elements (characters or nucleotides) are different.
 
 🧠 Where exactly  is ``HammingDistance`` used?
 
-It is primarirly used in **Mutation Detection** and **Sequence Comparision**
+It is primarirly used in **Mutation Detection** and **Sequence Comparison**
 
 🛠️ Program Code
 ```Python
@@ -289,13 +287,13 @@ seq2 = "ATGCCTTACCTAGATGCAATGACGGACGTATTCCTTTTGCCTCAACGGCTCCT"
 print(HammingDistance(seq1, seq2))
 ```
 
-Output of which is ``37``
+Output of which is ``43``
 
 💡 Key Concept of ``HammingFunction`` is:
 1. It iterate over the position of both the sequences
 2. Compare the corresponding characters at each position.
 3. If the characters differ, increment the counter.
-4. Output ie. ``37`` shows that the two sequences differs at 37 positions, which shows that there are 37 mutations in the between the DNA sequence.
+4. The output ``43`` shows that the two sequences differs at 43 positions, which shows that there are 43 single nucleotide mutations between the DNA sequences.
 
 ### 🐍 Ep 5 Approximate Pattern Matching in DNA Sequences
 
@@ -357,7 +355,7 @@ Pattern = "ATAG"
 d = 1
 print(ApproximatePatternMatching(Text, Pattern, d))
 ```
-Output of which looks somehting like this: ``[6, 17, 23]``
+Output of which looks something like this: ``[4, 13, 17, 23, 29]``
 
 💡 Key concept of ``ApproximatePatternMatching``
 1. We are giving 3 input variables:
@@ -365,7 +363,7 @@ Output of which looks somehting like this: ``[6, 17, 23]``
   - **Pattern**: The motif or sequence to search for
   - **d**: Maximum allowed mismatches (Hamming distance)
 2. Logic:
-  - Exract every substring of ``Text`` with the same length as ``Pattern``
+  - Extract every substring of ``Text`` with the same length as ``Pattern``
   - Calculate the **Hamming Distance** between the substring and the pattern
   - If the Hamming Distance is ≤ ``d``, record the position
 3. Output tells that the pattern "ATAG" (here) appears approximately at positions 6, 17, and 23 in the sequence, where each match has exact 1 mismatch i.e. ``d=1``
