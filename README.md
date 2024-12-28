@@ -40,7 +40,7 @@ The primary topics covered here are:
 7. Greedy Motif Search (the finale of all - the main standalone function which uses all the above function in the form of Greedy Algorithm)
 8. Finding Patterns with Mismatches (extras)
 
-## 🧬 Season 4 - Colouring the Building and Final touch-ups
+## 🧬 [Season 4 - Colouring the Building and Final touch-ups](Season_4)
 Now the Series finale is this particular season which leads to end of this particualar git repo and in turn ends your initial journey of understanding very major Bioinformatics algorithms as well.
 
 Here primarirly we will cover 2 important topics 
