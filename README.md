@@ -51,4 +51,4 @@ Here primarirly we will cover 2 important topics
 ### 🚀 And with that, this repository comes to a wrap!  
 But wait, there's more! Keep an eye out for other exciting repositories on **Bioinformatics**, **Computational Drug Design**, and **Next-Gen Sequencing** over on my GitHub.  
 
-That's all from my side for now. Until next time, this is your man **Mohit @mhtjsh** signing off. Cheers! ✌️  
+That's all from my side for now. Until next time, this is your man **[Mohit](https://www.linkedin.com/in/mohitjoshi2425)** signing off. Cheers! ✌️  
