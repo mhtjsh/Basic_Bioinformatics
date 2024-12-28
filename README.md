@@ -14,7 +14,7 @@ A very basic initial Structural concept explained which primarirly involves this
 
 This all seems very intimaidating at first but trust me all of 'em have been explained in a very interesting manner, I urge you to take a look at it and you'll surely thank me later considering that.
 
-## 🧬 Season 2 - Adding steel rods as skeleton for the building
+## 🧬 [Season 2 - Adding steel rods as skeleton for the building](Season_2)
 A bit more complex and tough concepts are being touched upon which needed a lot more efforts to be understood are taken into account here, and I am giving my level best to make it most simpler interpretation of that concept to understand and trying to address each and every question which I had and possibly you could have during your learning journey.
 
 The primary topics involved here looks like:
