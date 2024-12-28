@@ -25,7 +25,7 @@ The primary topics involved here looks like:
 5. Calculating Hamming Distance between DNA
 6. Approximate Pattern Matching in DNA
 
-## 🧬 Season 3 - Adding Concrete slurry in the Skeletal Structure
+## 🧬 [Season 3 - Adding Concrete slurry in the Skeletal Structure](Season_3)
 Now season 3 and the upcoming last season involves a bit of Umbrella type of Code where I will walk you through each and every type of functions separately and then finally after using that small function codes we will make something very meaningful out of it. 
 
 Therefore, I encourage you to just stick with me and just enjoy the miracle or magic that you are about to experience at the end during this journey.
