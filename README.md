@@ -4,7 +4,7 @@ I am sharing my code repository to understand the basic working and principle of
 
 Hence, Let's dive into the journey with me where I start from basic to the complex concepts which is actually necessary to solve the real world calculations in Bioinformatics.
 
-## 🧬 Season 1 - Diggin down deep
+## 🧬 [Season 1 - Diggin down deep](Season_1)
 A very basic initial Structural concept explained which primarirly involves this concepts:
 1. Calculate pattern
 2. Frequecney map of DNA sequence
